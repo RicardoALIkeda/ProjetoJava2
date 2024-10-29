@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: Poppins, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -10,13 +10,14 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 10vh;
 }
 
 .logo {
-  width: 200px; /* Set the desired width */
-  height: 200px; /* Maintain aspect ratio */
+  width: 180px; /* Set the desired width */
+  height: 180px; /* Maintain aspect ratio */
   display: block; /* Ensure it behaves like a block element */
-  margin: 0 auto; /* Center the logo horizontally */
+  /* margin: 0 auto; Center the logo horizontally */
 }
 
 .nav {
