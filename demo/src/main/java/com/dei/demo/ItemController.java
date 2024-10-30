@@ -1,6 +1,5 @@
 package com.dei.demo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,23 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/items")
 public class ItemController {
 
-    private List<String> items = new ArrayList<>();
+    private final ItemManager itemManager = new ItemManager();
 
     @GetMapping
     public List<String> getAllItems() {
-        return items;
+        return itemManager.getItems();
     }
 
     @PostMapping
     public String createItem(@RequestBody String item) {
-        items.add(item);
+        itemManager.addItem(item);
         return "Item criado: " + item;
     }
 
     @PutMapping("/{id}")
     public String updateItem(@PathVariable int id, @RequestBody String item) {
-        if (id >= 0 && id < items.size()) {
-            items.set(id, item);
+        boolean updated = itemManager.updateItem(id, item);
+        if (updated) {
             return "Item atualizado: " + item;
         } else {
             return "Item não encontrado";
@@ -41,9 +40,9 @@ public class ItemController {
 
     @DeleteMapping("/{id}")
     public String deleteItem(@PathVariable int id) {
-        if (id >= 0 && id < items.size()) {
-            String removedItem = items.remove(id);
-            return "Item deletado: " + removedItem;
+        boolean deleted = itemManager.deleteItem(id);
+        if (deleted) {
+            return "Item deletado";
         } else {
             return "Item não encontrado";
         }

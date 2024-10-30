@@ -1,29 +1,39 @@
 package com.dei.demo;
+
 import java.util.ArrayList;
 import java.util.List;
+
 public class ItemManager {
+
     private List<String> items = new ArrayList<>();
-    public List<String> getAllItems() {
+    public ItemManager() {
+        items.add("Item 1");
+        items.add("Item 2");
+        items.add("Item 3");
+    }
+    public List<String> getItems() {
         return items;
     }
-    public String createItem(String item) {
+
+    public void addItem(String item) {
         items.add(item);
-        return "Item criado: " + item;
     }
-    public String updateItem(int id, String item) {
+
+    public boolean updateItem(int id, String item) {
         if (id >= 0 && id < items.size()) {
             items.set(id, item);
-            return "Item atualizado: " + item;
+            return true;
         } else {
-            return "Item não encontrado";
+            return false;
         }
     }
-    public String deleteItem(int id) {
+
+    public boolean deleteItem(int id) {
         if (id >= 0 && id < items.size()) {
-            String removedItem = items.remove(id);
-            return "Item deletado: " + removedItem;
+            items.remove(id);
+            return true;
         } else {
-            return "Item não encontrado";
+            return false;
         }
     }
 }
