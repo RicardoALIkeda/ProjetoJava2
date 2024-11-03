@@ -18,21 +18,21 @@ public class ItemController {
     private final ItemManager itemManager = new ItemManager();
 
     @GetMapping
-    public List<String> getAllItems() {
+    public List<Item> getAllItems() {
         return itemManager.getItems();
     }
 
     @PostMapping
-    public String createItem(@RequestBody String item) {
-        itemManager.addItem(item);
-        return "Item criado: " + item;
+    public String createItem(@RequestBody String name) {
+        itemManager.addItem(name);
+        return "Item criado: " + name;
     }
 
     @PutMapping("/{id}")
-    public String updateItem(@PathVariable int id, @RequestBody String item) {
-        boolean updated = itemManager.updateItem(id, item);
+    public String updateItem(@PathVariable int id, @RequestBody String name) {
+        boolean updated = itemManager.updateItem(id, name);
         if (updated) {
-            return "Item atualizado: " + item;
+            return "Item atualizado: " + name;
         } else {
             return "Item não encontrado";
         }

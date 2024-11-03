@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/Img/dei1.png" type="image/x-icon">
+    <title>Teste da API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="/Pages/Home/home.html">
+                <img src="/Img/dei1.png" class="logo" alt="DEI">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="/Pages/Politica/politica.html">Política</a></li>
+                <li><a href="/Pages/Economia/economia.html">Economia</a></li>
+                <li><a href="/Pages/Esportes/esportes.html">Esportes</a></li>
+                <li><a href="/Pages/Entretenimento/entretenimento.html">Entretenimento</a></li>
+                <li><a href="/Pages/Blogs/blog.html">Blogs e Colunas</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Teste da API</h1>
+    <section class="destaque">
+        <img src="/Img/IMG_1549.JPG" alt="Imagem de destaque">
+        <div class="destaque-texto">
+            <h2>Rio é claramente a capital energetica do Brasil, diz Claudio Castro ao CNN Talks</h2>
+            <p>Vios da Ambipar. E possivel ser sustentável gerando estados</p>
+        </div>
+    </section>
+
+    <section class="ultimas-noticias">
+        <h2>Últimas Notícias</h2>
+        <ul>
+            <li>
+                <img src="/Img/IMG_0871.JPG" alt="Imagem da notícia 1">
+                <h3><a href="#">Homem, branco, de centro direita voja...</a></h3>
+                <p>Por preciominante dos profoltos cloltos um 2024...</p>
+            </li>
+            <li>
+                <img src="/Img/IMG_1512.JPG" alt="Imagem da notícia 2">
+                <h3><a href="#">Eleição apm Fortakos Fernandes vonico om...</a></h3>
+                <p>Anavitória de Nunes vom rachoada de...</p>
+            </li>
+            <li>
+                <img src="/Img/IMG_0908.jpg" alt="Imagem da notícia 3">
+                <h3><a href="#">Funcionária é demitida após...</a></h3>
+                <p>Identificar cliente como...</p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="mais-lidas">
+        <h2>Mais Lidas</h2>
+        <ul>
+            <li><a href="#">Bolsonaro sanciona projeto que...</a></li>
+            <li><a href="#">Governo vai liberar R$ 1 bilhão...</a></li>
+            <li><a href="#">Chuvas no Rio Grande do Sul...</a></li>
+        </ul>
+    </section>
+    <section>
+        <h2>Criar Item</h2>
+        <input type="text" id="createItemName" placeholder="Nome do Item">
+        <button onclick="createItem()">Criar</button>
+    </section>
+
+    <section>
+        <h2>Listar Itens</h2>
+        <button onclick="getAllItems()">Listar Todos</button>
+        <ul id="itemsList"></ul>
+    </section>
+
+    <section>
+        <h2>Atualizar Item</h2>
+        <input type="number" id="updateItemId" placeholder="ID do Item">
+        <input type="text" id="updateItemName" placeholder="Novo Nome do Item">
+        <button onclick="updateItem()">Atualizar</button>
+    </section>
+
+    <section>
+        <h2>Deletar Item</h2>
+        <input type="number" id="deleteItemId" placeholder="ID do Item">
+        <button onclick="deleteItem()">Deletar</button>
+    </section>
+
+    <script>
+        const apiUrl = 'http://localhost:8080/api/items';
+
+        async function createItem() {
+            const name = document.getElementById('createItemName').value;
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(name)
+            });
+            const result = await response.text();
+            alert(result);
+        }
+
+        async function getAllItems() {
+            const response = await fetch(apiUrl);
+            const items = await response.json();
+            const itemsList = document.getElementById('itemsList');
+            itemsList.innerHTML = '';
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `ID: ${item.id}, Nome: ${item.name}`;
+                itemsList.appendChild(li);
+            });
+        }
+
+        async function updateItem() {
+            const id = document.getElementById('updateItemId').value;
+            const name = document.getElementById('updateItemName').value;
+            const response = await fetch(`${apiUrl}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(name)
+            });
+            const result = await response.text();
+            alert(result);
+        }
+
+        async function deleteItem() {
+            const id = document.getElementById('deleteItemId').value;
+            const response = await fetch(`${apiUrl}/${id}`, {
+                method: 'DELETE'
+            });
+            const result = await response.text();
+            alert(result);
+        }
+    </script>
+</body>
+</html>
