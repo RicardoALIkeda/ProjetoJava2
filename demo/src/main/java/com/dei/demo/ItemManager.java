@@ -9,9 +9,9 @@ public class ItemManager {
     private int nextId = 1;
 
     public ItemManager() {
-        items.add(new Item(nextId++, "Item 1"));
-        items.add(new Item(nextId++, "Item 2"));
-        items.add(new Item(nextId++, "Item 3"));
+        items.add(new Item(nextId++, "Muito divertido, viu"));
+        items.add(new Item(nextId++, "Maravilha!!!"));
+        items.add(new Item(nextId++, "Nao Acredito!!!"));
     }
 
     public List<Item> getItems() {
