@@ -9,9 +9,9 @@ public class ItemManager {
     private int nextId = 1;
 
     public ItemManager() {
-        items.add(new Item(nextId++, "Muito divertido, viu"));
-        items.add(new Item(nextId++, "Maravilha!!!"));
-        items.add(new Item(nextId++, "Nao Acredito!!!"));
+        items.add(new Item(nextId++, "Trump vence eleição"));
+        items.add(new Item(nextId++, "Lula preso amanha!!!"));
+        items.add(new Item(nextId++, "yakuza é preso"));
     }
 
     public List<Item> getItems() {
