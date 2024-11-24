@@ -42,46 +42,12 @@
         </div>
     </section>
 
-    <section class="ultimas-noticias">
-        <h2>Últimas Notícias</h2>
-        <div class="news-container">
-          <ul class="left-column">
-            <li>
-              <img src="/Img/gabigol.JPG" alt="Imagem da notícia 1">
-              <h3><a href="#">Homem, branco, de centro direita voja...</a></h3>
-              <p>Por preciominante dos profoltos cloltos um 2024...</p>
-            </li>
-            <li>
-              <img src="/Img/policia.jpeg" alt="Imagem da notícia 2">
-              <h3><a href="#">Eleição apm Fortakos Fernandes vonico om...</a></h3>
-              <p>Anavitória de Nunes vom rachoada de...</p>
-            </li>
-            <li>
-              <img src="/Img/IMG_5232.jpg" alt="Imagem da notícia 3">
-              <h3><a href="#">Funcionária é demitida após...</a></h3>
-              <p>Identificar cliente como...</p>
-            </li>
-          </ul>
-          <ul class="right-column">
-            <li>
-              <img src="/Img/bope.JPG" alt="Imagem da notícia 1">
-              <h3><a href="#">Homem, branco, de centro direita voja...</a></h3>
-              <p>Por preciominante dos profoltos cloltos um 2024...</p>
-            </li>
-            <li>
-              <img src="/Img/saporrquimem.JPG" alt="Imagem da notícia 2">
-              <h3><a href="#">Eleição apm Fortakos Fernandes vonico om...</a></h3>
-              <p>Anavitória de Nunes vom rachoada de...</p>
-            </li>
-            <li>
-              <img src="/Img/IMG_0908.jpg" alt="Imagem da notícia 3">
-              <h3><a href="#">Funcionária é demitida após...</a></h3>
-              <p>Identificar cliente como...</p>
-            </li>
-          </ul>
-        </div>
-      </section>
 
+    <h1>Upload de Imagem</h1>
+    <form method="POST" action="/api/items/uplc" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*">
+        <button type="submit">Enviar</button>
+    </form>
     <section class="mais-lidas">
         <h2>Mais Lidas</h2>
         <ul>
@@ -92,10 +58,16 @@
         </ul>
     </section>
     <section>
-        <h2>Comentar</h2>
-        <input type="text" id="createItemName" placeholder="Comentario">
+        <h2>Título</h2>
+        <input type="text" id="createItemName" placeholder="">
         <button onclick="createItem()">Criar</button>
     </section>
+    <section>
+        <h2>Matéria</h2>
+        <input type="text" id="createItemName" placeholder="">
+        <button onclick="createItem()">Criar</button>
+    </section>
+
 
     <section>
         <h2>Mostrar todos os comentarios</h2>
@@ -150,7 +122,7 @@
             items.forEach(item => {
                 const li = document.createElement('li');  
 
-                li.textContent = `ID: ${item.id}, Nome: ${item.name}`;
+                li.textContent = `${item.name}`;
                 itemsList.appendChild(li);
             });
         }
