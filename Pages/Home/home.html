@@ -80,25 +80,6 @@
         </ul>
         <p>&copy; 2024 DEI. Todos os direitos reservados.</p>
     </footer>
-    <script>
-        // Função para buscar todos os itens da API
-        async function fetchItems() {
-            try {
-                const response = await fetch('/api/items'); // Ajuste a URL conforme necessário
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                const items = await response.json();
-                const itemsContainer = document.getElementById('items-container');
-                itemsContainer.innerHTML = items.map(item => `<p>${item}</p>`).join('');
-            } catch (error) {
-                console.error('Erro ao buscar itens:', error);
-            }
-        }
-
-        // Chama a função para buscar itens quando a página carrega
-        window.onload = fetchItems;
-    </script>
 </body>
 
 </html>
