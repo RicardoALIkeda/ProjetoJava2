@@ -14,10 +14,10 @@ body {
   }
   
   .logo {
-    width: 180px;
-    height: 180px;
-    display: block; 
-
+    width: 180px; /* Set the desired width */
+    height: 180px; /* Maintain aspect ratio */
+    display: block; /* Ensure it behaves like a block element */
+    /* margin: 0 auto; Center the logo horizontally */
   }
   
   .nav {
@@ -41,29 +41,20 @@ body {
   }
   
   .destaque {
-    position: relative;
-    width: 100%;
-    max-width: 600px; 
-    margin: 0 auto;
-}
-.destaque-imagem {
-    position: relative;
-}
-.destaque img {
-    width: 100%;
-    height: auto;
-}
-.destaque-texto {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 10px;
-}
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .destaque img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .destaque-texto {
+    flex: 1;
+    margin-left: 20px;
+  }
   
   .destaque-texto h2 {
     font-size: 24px;
@@ -186,9 +177,9 @@ body {
   }
   
   .news-container {
-    display: flex;
+    display: flex; /* Enable flexbox layout */
   }
   
   .left-column, .right-column {
-    width: 50%;
+    width: 50%; /* Each column takes 50% of the container width */
   }
