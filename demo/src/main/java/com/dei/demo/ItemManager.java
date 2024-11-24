@@ -33,6 +33,14 @@ public class ItemManager {
         return false;
     }
 
+    public Item getItemById(int id) {
+        for (Item item : items) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null; 
+    }
     public boolean deleteItem(int id) {
         return items.removeIf(item -> item.getId() == id);
     }

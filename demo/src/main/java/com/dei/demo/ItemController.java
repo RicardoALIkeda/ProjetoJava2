@@ -2,9 +2,11 @@ package com.dei.demo;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,18 @@ public class ItemController {
 
     private final ItemManager itemManager = new ItemManager();
 
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
+    @GetMapping("/api/itens/{id}")
+public ResponseEntity<Item> getItemById(@PathVariable int id) {
+    Item item = itemManager.getItemById(id); // Implemente o método getItemById no ItemManager
+    if (item != null) {
+        return ResponseEntity.ok(item);
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+}
     @GetMapping
     public List<Item> getAllItems() {
         return itemManager.getItems();
@@ -54,36 +68,29 @@ public class ItemController {
     }
 
     @PostMapping("/upload")
-    public String uploadImage(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            return "Falha no upload: o arquivo está vazio";
+            return ResponseEntity.badRequest().body("Falha no upload: o arquivo está vazio");
         }
-    
+
         try {
-            String uploadDir = "uploads/"; // Diretório dentro do JAR
-    
-            // Obter a URL do diretório
-            URL uploadDirURL = getClass().getClassLoader().getResource(uploadDir);
-    
-            if (uploadDirURL != null) {
-                // Converter a URL para um File
-                File uploadDirFile = new File(uploadDirURL.getFile());
-    
-                // Verificar se o diretório existe e, se não, criá-lo
-                if (!uploadDirFile.exists()) {
-                    uploadDirFile.mkdirs();
+            File uploadDirFile = new File(uploadDir);
+        
+            if (!uploadDirFile.exists()) {
+                boolean created = uploadDirFile.mkdirs(); // Tenta criar o diretório
+                if (!created) {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                         .body("Não foi possível criar o diretório de upload");
                 }
-    
-                // Salvar o arquivo no diretório
-                String filePath = uploadDirFile.getAbsolutePath() + "/" + file.getOriginalFilename();
-                file.transferTo(new File(filePath));
-    
-                return "Arquivo enviado com sucesso: " + filePath;
-            } else {
-                return "Falha no upload: diretório não encontrado";
             }
+        
+            String filePath = uploadDirFile.getAbsolutePath() + "/" + file.getOriginalFilename();
+            file.transferTo(new File(filePath));
+        
+            return ResponseEntity.ok("Arquivo enviado com sucesso: " + filePath);
         } catch (IOException e) {
-            return "Falha no upload do arquivo: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body("Falha no upload do arquivo: " + e.getMessage());
         }
     }
 }

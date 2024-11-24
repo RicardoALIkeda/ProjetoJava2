@@ -68,38 +68,103 @@
                 <li><a href="#">Bolsonaro sanciona projeto que...</a></li>
                 <li><a href="#">Governo vai liberar R$ 1 bilhão...</a></li>
                 <li><a href="#">Chuvas no Rio Grande do Sul...</a></li>
+                <ul id="itemsList"></ul>
             </ul>
         </section>
-    </main>
-
-    <footer class="footer">
-        <ul>
-            <li><a href="/Pages/SobreNos/sobre.html">Sobre Nós</a></li>
-            <li><a href="/Pages/PoliticasDePrivacidade/politicas.html">Política de Privacidade</a></li>
-            <li><a href="/Pages/TermosDeUso/termos.html">Termos de Uso</a></li>
-            <li><a href="/Pages/FaleConosco/fale.html">Fale Conosco</a></li>
-        </ul>
-        <p>&copy; 2024 DEI. Todos os direitos reservados.</p>
-    </footer>
-    <script>
-        // Função para buscar todos os itens da API
-        async function fetchItems() {
-            try {
-                const response = await fetch('/api/items'); // Ajuste a URL conforme necessário
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                const items = await response.json();
-                const itemsContainer = document.getElementById('items-container');
-                itemsContainer.innerHTML = items.map(item => `<p>${item}</p>`).join('');
-            } catch (error) {
-                console.error('Erro ao buscar itens:', error);
+        
+    
+        <script>
+            
+            const apiUrl = 'http://localhost:8080/api/items';
+    
+            async function createItem() {
+        const name = document.getElementById('createItemName').value;
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(name) 
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
+            const result = await response.text();
+            alert(result);
+            getAllItems(); 
+    
+        } catch (error) {
+            console.error('Error creating item:', error);
+            alert('Error creating item. Please try again later.'); 
         }
-
-        // Chama a função para buscar itens quando a página carrega
-        window.onload = fetchItems;
-    </script>
+    }
+    
+            async function getAllItems() {
+                const response = await fetch(apiUrl);
+                const items = await response.json();
+                const itemsList = document.getElementById('itemsList');
+                itemsList.innerHTML = ''; 
+                items.forEach(item => {
+                    const li = document.createElement('li');  
+    
+                    li.textContent = `${item.name}`;
+                    itemsList.appendChild(li);
+                });
+            }
+    
+            window.onload = getAllItems; 
+    
+            async function updateItem() {
+        const id = document.getElementById('updateItemId').value;
+        const name = document.getElementById('updateItemName').value;
+        try {
+            const response = await fetch(`${apiUrl}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(name)
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+    
+            const result = await response.text();
+            alert(result);
+    
+            getAllItems(); 
+    
+        } catch (error) {
+            console.error('Error updating item:', error);
+            alert('Error updating item. Please try again.'); 
+        }
+    }
+    
+    async function deleteItem() {
+        const id = document.getElementById('deleteItemId').value;
+        try {
+            const response = await fetch(`${apiUrl}/${id}`, {
+                method: 'DELETE'
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+    
+            const result = await response.text();
+            alert(result);
+    
+            getAllItems();
+    
+        } catch (error) {
+            console.error('Error deleting item:', error);
+            alert('Error deleting item. Please try again.'); 
+        }
+    }
+        </script>
 </body>
 
 </html>
