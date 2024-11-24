@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Noticia;
 
 @Repository
-public interface NoticiaRepository extends JpaRepository<Noticia, Long> {
-    // findAll method is already provided by JpaRepository
-}
+public interface NoticiaRepository extends JpaRepository<Noticia, Long> {}
