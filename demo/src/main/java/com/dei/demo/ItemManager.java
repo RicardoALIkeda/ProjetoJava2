@@ -5,35 +5,41 @@ import java.util.List;
 
 public class ItemManager {
 
-    private List<Item> items = new ArrayList<>();
-    private int nextId = 1;
-
+    private List<String> items = new ArrayList<>();
     public ItemManager() {
-        items.add(new Item(nextId++, "Item 1"));
-        items.add(new Item(nextId++, "Item 2"));
-        items.add(new Item(nextId++, "Item 3"));
+<<<<<<< HEAD
+        items.add(new Item(nextId++, "Muito divertido, viu"));
+        items.add(new Item(nextId++, "Maravilha!!!"));
+        items.add(new Item(nextId++, "Nao Acredito!!!"));
+=======
+        items.add("Item 1");
+        items.add("Item 2");
+        items.add("Item 3");
+>>>>>>> parent of 32e6130 (teste bao)
     }
-
-    public List<Item> getItems() {
+    public List<String> getItems() {
         return items;
     }
 
-    public void addItem(String name) {
-        Item newItem = new Item(nextId++, name);
-        items.add(newItem);
+    public void addItem(String item) {
+        items.add(item);
     }
 
-    public boolean updateItem(int id, String name) {
-        for (Item item : items) {
-            if (item.getId() == id) {
-                item.setName(name);
-                return true;
-            }
+    public boolean updateItem(int id, String item) {
+        if (id >= 0 && id < items.size()) {
+            items.set(id, item);
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     public boolean deleteItem(int id) {
-        return items.removeIf(item -> item.getId() == id);
+        if (id >= 0 && id < items.size()) {
+            items.remove(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

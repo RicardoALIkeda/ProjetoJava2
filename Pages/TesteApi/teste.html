@@ -44,24 +44,43 @@
 
     <section class="ultimas-noticias">
         <h2>Últimas Notícias</h2>
-        <ul>
+        <div class="news-container">
+          <ul class="left-column">
             <li>
-                <img src="/Img/IMG_0871.JPG" alt="Imagem da notícia 1">
-                <h3><a href="#">Homem, branco, de centro direita voja...</a></h3>
-                <p>Por preciominante dos profoltos cloltos um 2024...</p>
+              <img src="/Img/IMG_0871.JPG" alt="Imagem da notícia 1">
+              <h3><a href="#">Homem, branco, de centro direita voja...</a></h3>
+              <p>Por preciominante dos profoltos cloltos um 2024...</p>
             </li>
             <li>
-                <img src="/Img/IMG_1512.JPG" alt="Imagem da notícia 2">
-                <h3><a href="#">Eleição apm Fortakos Fernandes vonico om...</a></h3>
-                <p>Anavitória de Nunes vom rachoada de...</p>
+              <img src="/Img/IMG_1512.JPG" alt="Imagem da notícia 2">
+              <h3><a href="#">Eleição apm Fortakos Fernandes vonico om...</a></h3>
+              <p>Anavitória de Nunes vom rachoada de...</p>
             </li>
             <li>
-                <img src="/Img/IMG_0908.jpg" alt="Imagem da notícia 3">
-                <h3><a href="#">Funcionária é demitida após...</a></h3>
-                <p>Identificar cliente como...</p>
+              <img src="/Img/IMG_0908.jpg" alt="Imagem da notícia 3">
+              <h3><a href="#">Funcionária é demitida após...</a></h3>
+              <p>Identificar cliente como...</p>
             </li>
-        </ul>
-    </section>
+          </ul>
+          <ul class="right-column">
+            <li>
+              <img src="/Img/IMG_0871.JPG" alt="Imagem da notícia 1">
+              <h3><a href="#">Homem, branco, de centro direita voja...</a></h3>
+              <p>Por preciominante dos profoltos cloltos um 2024...</p>
+            </li>
+            <li>
+              <img src="/Img/IMG_1512.JPG" alt="Imagem da notícia 2">
+              <h3><a href="#">Eleição apm Fortakos Fernandes vonico om...</a></h3>
+              <p>Anavitória de Nunes vom rachoada de...</p>
+            </li>
+            <li>
+              <img src="/Img/IMG_0908.jpg" alt="Imagem da notícia 3">
+              <h3><a href="#">Funcionária é demitida após...</a></h3>
+              <p>Identificar cliente como...</p>
+            </li>
+          </ul>
+        </div>
+      </section>
 
     <section class="mais-lidas">
         <h2>Mais Lidas</h2>
@@ -72,26 +91,25 @@
         </ul>
     </section>
     <section>
-        <h2>Criar Item</h2>
-        <input type="text" id="createItemName" placeholder="Nome do Item">
+        <h2>Comentar</h2>
+        <input type="text" id="createItemName" placeholder="Comentario">
         <button onclick="createItem()">Criar</button>
     </section>
 
     <section>
-        <h2>Listar Itens</h2>
-        <button onclick="getAllItems()">Listar Todos</button>
+        <h2>Mostrar todos os comentarios</h2>
         <ul id="itemsList"></ul>
     </section>
 
     <section>
-        <h2>Atualizar Item</h2>
-        <input type="number" id="updateItemId" placeholder="ID do Item">
-        <input type="text" id="updateItemName" placeholder="Novo Nome do Item">
+        <h2>Atualizar Comentario</h2>
+        <input type="number" id="updateItemId" placeholder="ID Comentario">
+        <input type="text" id="updateItemName" placeholder="Novo Comentario">
         <button onclick="updateItem()">Atualizar</button>
     </section>
 
     <section>
-        <h2>Deletar Item</h2>
+        <h2>Deletar Comentario</h2>
         <input type="number" id="deleteItemId" placeholder="ID do Item">
         <button onclick="deleteItem()">Deletar</button>
     </section>
@@ -100,52 +118,93 @@
         const apiUrl = 'http://localhost:8080/api/items';
 
         async function createItem() {
-            const name = document.getElementById('createItemName').value;
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(name)
-            });
-            const result = await response.text();
-            alert(result);
+    const name = document.getElementById('createItemName').value;
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(name) 
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        const result = await response.text();
+        alert(result);
+        getAllItems(); 
+
+    } catch (error) {
+        console.error('Error creating item:', error);
+        alert('Error creating item. Please try again later.'); 
+    }
+}
+
 
         async function getAllItems() {
             const response = await fetch(apiUrl);
             const items = await response.json();
             const itemsList = document.getElementById('itemsList');
-            itemsList.innerHTML = '';
+            itemsList.innerHTML = ''; 
             items.forEach(item => {
-                const li = document.createElement('li');
+                const li = document.createElement('li');  
+
                 li.textContent = `ID: ${item.id}, Nome: ${item.name}`;
                 itemsList.appendChild(li);
             });
         }
 
+        window.onload = getAllItems; 
+
         async function updateItem() {
-            const id = document.getElementById('updateItemId').value;
-            const name = document.getElementById('updateItemName').value;
-            const response = await fetch(`${apiUrl}/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(name)
-            });
-            const result = await response.text();
-            alert(result);
+    const id = document.getElementById('updateItemId').value;
+    const name = document.getElementById('updateItemName').value;
+    try {
+        const response = await fetch(`${apiUrl}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(name)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        async function deleteItem() {
-            const id = document.getElementById('deleteItemId').value;
-            const response = await fetch(`${apiUrl}/${id}`, {
-                method: 'DELETE'
-            });
-            const result = await response.text();
-            alert(result);
+        const result = await response.text();
+        alert(result);
+
+        getAllItems(); // Or update the DOM directly
+
+    } catch (error) {
+        console.error('Error updating item:', error);
+        alert('Error updating item. Please try again.'); 
+    }
+}
+
+async function deleteItem() {
+    const id = document.getElementById('deleteItemId').value;
+    try {
+        const response = await fetch(`${apiUrl}/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
+
+        const result = await response.text();
+        alert(result);
+
+        getAllItems(); // Or update the DOM directly
+
+    } catch (error) {
+        console.error('Error deleting item:', error);
+        alert('Error deleting item. Please try again.'); 
+    }
+}
     </script>
 </body>
 </html>
