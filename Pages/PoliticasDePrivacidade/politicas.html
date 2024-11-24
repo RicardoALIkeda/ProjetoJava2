@@ -30,27 +30,69 @@
             </ul>
         </nav>
     </header>
+
     <main>
         <section class="politicas">
-            <h1>Políticas de Privacidade</h1>
+            <h1>Política de Privacidade</h1>
             <article>
-                <h2>Texto sobre políticas de privacidade</h2>
-                <p>Texto sobre políticas de privacidade</p>
+                <h2>1. Informações Coletadas</h2>
+                <p>Ao acessar o site DEI News, podemos coletar as seguintes informações:</p>
+                <ul>
+                    <li><strong>Informações Pessoais</strong>: Nome, endereço de e-mail, e outras informações fornecidas por você ao assinar nossa newsletter ou interagir conosco de outras formas.</li>
+                    <li><strong>Informações de Navegação</strong>: Dados sobre como você usa nosso site, incluindo seu endereço IP, localização geográfica, tipo de dispositivo, navegador utilizado e páginas acessadas.</li>
+                    <li><strong>Cookies e Tecnologias Semelhantes</strong>: Utilizamos cookies para melhorar a experiência de navegação, personalizar conteúdo e anúncios, e analisar o tráfego no site. Você pode configurar seu navegador para bloquear ou excluir cookies, mas isso pode afetar algumas funcionalidades do site.</li>
+                </ul>
             </article>
+
             <article>
-                <h2>Texto sobre políticas de privacidade</h2>
-                <p>Texto sobre políticas de privacidade</p>
+                <h2>2. Uso das Informações</h2>
+                <p>As informações coletadas são usadas para os seguintes fins:</p>
+                <ul>
+                    <li><strong>Melhorar a Experiência do Usuário</strong>: Para personalizar o conteúdo e as recomendações de notícias com base nos interesses dos usuários.</li>
+                    <li><strong>Comunicação</strong>: Enviar boletins informativos, atualizações de notícias e outros conteúdos relacionados ao DEI News, conforme autorizado por você.</li>
+                    <li><strong>Análises e Melhorias</strong>: Analisar como os usuários interagem com o site para melhorar os serviços e a funcionalidade da plataforma.</li>
+                </ul>
             </article>
+
             <article>
-                <h2>Texto sobre políticas de privacidade</h2>
-                <p>Texto sobre políticas de privacidade</p>
+                <h2>3. Proteção das Informações</h2>
+                <p>Tomamos medidas de segurança para proteger suas informações pessoais contra acesso não autorizado, alteração, divulgação ou destruição. No entanto, nenhum método de transmissão de dados ou armazenamento eletrônico é 100% seguro. Embora façamos o possível para proteger suas informações, não podemos garantir segurança absoluta.</p>
             </article>
+
             <article>
-                <h2>Texto sobre políticas de privacidade</h2>
-                <p>Texto sobre políticas de privacidade</p>
+                <h2>4. Compartilhamento de Informações</h2>
+                <p>O DEI News não compartilha suas informações pessoais com terceiros, exceto nas seguintes situações:</p>
+                <ul>
+                    <li><strong>Parceiros de Publicidade</strong>: Podemos compartilhar dados agregados e anônimos com parceiros de publicidade para fornecer anúncios personalizados. Esses parceiros podem usar cookies e outras tecnologias para exibir anúncios em nosso site.</li>
+                    <li><strong>Exigências Legais</strong>: Podemos divulgar suas informações pessoais quando exigido por lei ou quando acreditarmos de boa fé que a divulgação é necessária para cumprir uma obrigação legal ou proteger nossos direitos e segurança.</li>
+                </ul>
+            </article>
+
+            <article>
+                <h2>5. Seus Direitos</h2>
+                <p>Você tem o direito de acessar, corrigir ou excluir suas informações pessoais que estão em nossa posse. Para exercer esses direitos, entre em contato conosco através do e-mail <a href="mailto:contato@deinews.com.br">contato@deinews.com.br</a>.</p>
+            </article>
+
+            <article>
+                <h2>6. Alterações na Política de Privacidade</h2>
+                <p>O DEI News pode atualizar esta Política de Privacidade periodicamente. Quaisquer alterações serão publicadas nesta página, com a data da última atualização indicada no final do documento. Recomendamos que você revise regularmente nossa Política de Privacidade para estar ciente de quaisquer modificações.</p>
+            </article>
+
+            <article>
+                <h2>7. Contato</h2>
+                <p>Se você tiver dúvidas sobre nossa Política de Privacidade ou sobre o tratamento de seus dados pessoais, entre em contato conosco pelo e-mail <a href="mailto:contato@deinews.com.br">contato@deinews.com.br</a>.</p>
+                <p><strong>Última atualização:</strong> <span id="data-atualizacao"></span></p>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                      var dataAtualizacao = new Date();
+                      var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                      document.getElementById("data-atualizacao").textContent = dataAtualizacao.toLocaleDateString('pt-BR', options);
+                    });
+                  </script>
             </article>
         </section>
     </main>
+
     <footer class="footer">
         <ul>
             <li><a href="/Pages/SobreNos/sobre.html">Sobre Nós</a></li>

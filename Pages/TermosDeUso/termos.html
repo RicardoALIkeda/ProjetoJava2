@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEI News | Termos de Uso </title>
+    <title>DEI News | Termos de Uso</title>
     <link rel="stylesheet" href="/Style/style.css">
     <link rel="icon" href="/Img/dei1.png" type="image/x-icon">
 
@@ -30,12 +30,55 @@
             </ul>
         </nav>
     </header>
+
     <main>
         <section class="termos">
             <h1>Termos de Uso</h1>
-            <p>Texto dos termos de uso</p>
+            <article>
+                <h2>1. Aceitação dos Termos</h2>
+                <p>Ao acessar e usar o site DEI News, você concorda em cumprir os termos e condições descritos nesta página. Se você não concordar com os termos de uso, por favor, não utilize nossos serviços.</p>
+            </article>
+
+            <article>
+                <h2>2. Uso do Site</h2>
+                <p>Você concorda em utilizar o DEI News apenas para fins legais e de acordo com as leis aplicáveis. Não é permitido utilizar o site para violar direitos de propriedade intelectual ou para fins que possam prejudicar outros usuários ou o funcionamento do site.</p>
+            </article>
+
+            <article>
+                <h2>3. Propriedade Intelectual</h2>
+                <p>Todo o conteúdo do site DEI News, incluindo textos, imagens, vídeos, logotipos e design, é protegido por direitos autorais e outras leis de propriedade intelectual. Você não pode copiar, reproduzir, modificar ou distribuir qualquer conteúdo sem a permissão expressa do DEI News.</p>
+            </article>
+
+            <article>
+                <h2>4. Privacidade e Dados Pessoais</h2>
+                <p>A coleta e o uso de dados pessoais no DEI News são regidos pela nossa <a href="/Pages/PoliticasDePrivacidade/politicas.html">Política de Privacidade</a>. Ao utilizar nossos serviços, você concorda com o processamento de seus dados conforme descrito nessa política.</p>
+            </article>
+
+            <article>
+                <h2>5. Modificação dos Termos</h2>
+                <p>O DEI News se reserva o direito de modificar estes Termos de Uso a qualquer momento, sem aviso prévio. As alterações serão publicadas nesta página, e a data da última atualização será indicada no final deste documento. Recomendamos que você revise os termos periodicamente.</p>
+            </article>
+
+            <article>
+                <h2>6. Isenção de Responsabilidade</h2>
+                <p>O DEI News não se responsabiliza por quaisquer danos diretos ou indiretos que possam resultar do uso do site ou da impossibilidade de acessar seu conteúdo. O uso do site é de responsabilidade exclusiva do usuário.</p>
+            </article>
+
+            <article>
+                <h2>7. Contato</h2>
+                <p>Se você tiver dúvidas sobre nossos Termos de Uso, entre em contato conosco pelo e-mail <a href="mailto:contato@deinews.com.br">contato@deinews.com.br</a>.</p>
+                <p><strong>Última atualização:</strong> <span id="data-atualizacao"></span></p>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                      var dataAtualizacao = new Date();
+                      var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                      document.getElementById("data-atualizacao").textContent = dataAtualizacao.toLocaleDateString('pt-BR', options);
+                    });
+                  </script>
+            </article>
         </section>
     </main>
+
     <footer class="footer">
         <ul>
             <li><a href="/Pages/SobreNos/sobre.html">Sobre Nós</a></li>
