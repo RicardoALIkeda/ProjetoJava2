@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEI News | Entretenimento </title>
+    <title>DEI News | Entretenimento</title>
     <link rel="stylesheet" href="/Style/style.css">
     <link rel="icon" href="/Img/dei1.png" type="image/x-icon">
 
@@ -27,30 +27,51 @@
                 <li><a href="/Pages/Esportes/esportes.html">Esportes</a></li>
                 <li><a href="/Pages/Entretenimento/entretenimento.html">Entretenimento</a></li>
                 <li><a href="/Pages/Blogs/blog.html">Blogs e Colunas</a></li>
+                <li><a href="/Pages/Login/login.html" class="login-button">Login</a></li>
             </ul>
         </nav>
     </header>
-    <main>
-        <section class="entretenimento">
-            <h1>Entretenimento</h1>
-            <article>
-                <h2>Texto sobre entretenimento</h2>
-                <p>Texto sobre entretenimento</p>
-            </article>
-            <article>
-                <h2>Texto sobre entretenimento</h2>
-                <p>Texto sobre entretenimento</p>
-            </article>
-            <article>
-                <h2>Texto sobre entretenimento</h2>
-                <p>Texto sobre entretenimento</p>
-            </article>
-            <article>
-                <h2>Texto sobre entretenimento</h2>
-                <p>Texto sobre entretenimento</p>
-            </article>
+
+    <main class="main">
+        <section class="destaque">
+            <img src="/Img/IMG_1549.JPG" alt="Imagem de destaque do entretenimento">
+            <div class="destaque-texto">
+                <h2>Celebridades do Brasil: O impacto cultural no mundo</h2>
+                <p>Como as celebridades brasileiras estão influenciando as tendências globais e mudando a cultura mundial.</p>
+            </div>
+        </section>
+
+        <section class="ultimas-noticias">
+            <h2>Últimas Notícias de Entretenimento</h2>
+            <ul>
+                <li>
+                    <img src="/Img/IMG_0871.JPG" alt="Imagem da notícia 1">
+                    <h3><a href="#">Nova série de sucesso domina as paradas de audiência</a></h3>
+                    <p>Produção brasileira conquista plateias internacionais com uma trama inovadora...</p>
+                </li>
+                <li>
+                    <img src="/Img/IMG_1512.JPG" alt="Imagem da notícia 2">
+                    <h3><a href="#">Artistas se preparam para o maior evento de música do ano</a></h3>
+                    <p>Confira os bastidores e quem são as principais atrações do festival...</p>
+                </li>
+                <li>
+                    <img src="/Img/IMG_0908.jpg" alt="Imagem da notícia 3">
+                    <h3><a href="#">Premiação do cinema: O que esperar da temporada deste ano</a></h3>
+                    <p>Os principais filmes e artistas que devem ser destaque nas premiações de cinema...</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="mais-lidas">
+            <h2>Mais Lidas no Entretenimento</h2>
+            <ul>
+                <li><a href="#">Filme brasileiro bate recordes de bilheteira em várias regiões</a></li>
+                <li><a href="#">Artista internacional revela novo projeto em parceria com brasileiro</a></li>
+                <li><a href="#">Famosos do Brasil se juntam para projeto solidário em meio à pandemia</a></li>
+            </ul>
         </section>
     </main>
+
     <footer class="footer">
         <ul>
             <li><a href="/Pages/SobreNos/sobre.html">Sobre Nós</a></li>
@@ -60,6 +81,26 @@
         </ul>
         <p>&copy; 2024 DEI. Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        // Função para buscar todos os itens de entretenimento da API
+        async function fetchEntertainmentItems() {
+            try {
+                const response = await fetch('/api/entertainment-items'); // Ajuste a URL conforme necessário
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                const items = await response.json();
+                const itemsContainer = document.getElementById('items-container');
+                itemsContainer.innerHTML = items.map(item => `<p>${item}</p>`).join('');
+            } catch (error) {
+                console.error('Erro ao buscar itens de entretenimento:', error);
+            }
+        }
+
+        // Chama a função para buscar itens de entretenimento quando a página carrega
+        window.onload = fetchEntertainmentItems;
+    </script>
 </body>
 
 </html>

@@ -27,25 +27,51 @@
                 <li><a href="/Pages/Esportes/esportes.html">Esportes</a></li>
                 <li><a href="/Pages/Entretenimento/entretenimento.html">Entretenimento</a></li>
                 <li><a href="/Pages/Blogs/blog.html">Blogs e Colunas</a></li>
+                <li><a href="/Pages/Login/login.html" class="login-button">Login</a></li> </ul>
             </ul>
         </nav>
     </header>
-    <main>
-        <h1>Política</h1>
-        <p>Notícias sobre política nacional e internacional.</p>
-        <section class="noticia">
-            <h2>Notícia 1</h2>
-            <p>Descrição da notícia 1.</p>
+
+    <main class="main">
+        <section class="destaque">
+            <img src="/Img/IMG_1549.JPG" alt="Imagem de destaque">
+            <div class="destaque-texto">
+                <h2>Rio é claramente a capital energetica do Brasil, diz Claudio Castro ao CNN Talks</h2>
+                <p>Vios da Ambipar. E possivel ser sustentável gerando estados</p>
+            </div>
         </section>
-        <section class="noticia">
-            <h2>Notícia 2</h2>
-            <p>Descrição da notícia 2.</p>
+
+        <section class="ultimas-noticias">
+            <h2>Últimas Notícias</h2>
+            <ul>
+                <li>
+                    <img src="/Img/IMG_0871.JPG" alt="Imagem da notícia 1">
+                    <h3><a href="#">Homem, branco, de centro direita voja...</a></h3>
+                    <p>Por preciominante dos profoltos cloltos um 2024...</p>
+                </li>
+                <li>
+                    <img src="/Img/IMG_1512.JPG" alt="Imagem da notícia 2">
+                    <h3><a href="#">Eleição apm Fortakos Fernandes vonico om...</a></h3>
+                    <p>Anavitória de Nunes vom rachoada de...</p>
+                </li>
+                <li>
+                    <img src="/Img/IMG_0908.jpg" alt="Imagem da notícia 3">
+                    <h3><a href="#">Funcionária é demitida após...</a></h3>
+                    <p>Identificar cliente como...</p>
+                </li>
+            </ul>
         </section>
-        <section class="noticia">
-            <h2>Notícia 3</h2>
-            <p>Descrição da notícia 3.</p>
+
+        <section class="mais-lidas">
+            <h2>Mais Lidas</h2>
+            <ul>
+                <li><a href="#">Bolsonaro sanciona projeto que...</a></li>
+                <li><a href="#">Governo vai liberar R$ 1 bilhão...</a></li>
+                <li><a href="#">Chuvas no Rio Grande do Sul...</a></li>
+            </ul>
         </section>
     </main>
+
     <footer class="footer">
         <ul>
             <li><a href="/Pages/SobreNos/sobre.html">Sobre Nós</a></li>
@@ -55,6 +81,25 @@
         </ul>
         <p>&copy; 2024 DEI. Todos os direitos reservados.</p>
     </footer>
+    <script>
+        // Função para buscar todos os itens da API
+        async function fetchItems() {
+            try {
+                const response = await fetch('/api/items'); // Ajuste a URL conforme necessário
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                const items = await response.json();
+                const itemsContainer = document.getElementById('items-container');
+                itemsContainer.innerHTML = items.map(item => `<p>${item}</p>`).join('');
+            } catch (error) {
+                console.error('Erro ao buscar itens:', error);
+            }
+        }
+
+        // Chama a função para buscar itens quando a página carrega
+        window.onload = fetchItems;
+    </script>
 </body>
 
 </html>
