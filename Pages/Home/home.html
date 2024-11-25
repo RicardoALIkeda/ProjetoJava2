@@ -1,18 +1,15 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEI News | Notícias Ao Vivo do Brasil e do Mundo</title>
     <link rel="stylesheet" href="/Style/style.css">
-    <link rel="icon" href="/Img/dei1.png" type="image/x-icon">
-
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     </style>
 </head>
-
 <body>
     <header class="header">
         <div class="logo">
@@ -33,81 +30,187 @@
     </header>
 
     <main class="main">
-        <!-- Seção de Destaque -->
-        <section id="destaque" class="destaque">
-            <img id="destaqueImg" src="/Img/default.jpg" alt="Imagem de destaque">
-            <div class="destaque-texto">
-                <h2 id="destaqueTitulo">Título da notícia em destaque</h2>
-                <p id="destaqueDescricao">Descrição da notícia em destaque.</p>
+        <!-- Seção Destaque -->
+        <section class="destaque">
+            <img id="destaque-imagem" src="" alt="Imagem de destaque">
+            <div class="destaque-texto" id="destaque-texto">
+                <h2 id="destaque-titulo">Título de Destaque</h2>
+                <p id="destaque-descricao">Descrição da notícia de destaque.</p>
             </div>
         </section>
         
-        <!-- Seção de Últimas Notícias -->
+        <!-- Seção Últimas Notícias -->
         <section class="ultimas-noticias">
             <h2>Últimas Notícias</h2>
             <ul>
-                <li>
-                    <img id="noticia1Img" src="/Img/default.jpg" alt="Imagem da notícia 1">
-                    <h3><a id="noticia1Titulo" href="#">Título da Notícia 1</a></h3>
-                    <p id="noticia1Descricao">Descrição da Notícia 1.</p>
+                <li id="noticia-2">
+                    <img src="" alt="Imagem da notícia 2">
+                    <h3><a href="#" id="noticia-titulo-2">Título da Notícia 2</a></h3>
+                    <p id="noticia-descricao-2">Descrição da Notícia 2.</p>
                 </li>
-                <li>
-                    <img id="noticia2Img" src="/Img/default.jpg" alt="Imagem da notícia 2">
-                    <h3><a id="noticia2Titulo" href="#">Título da Notícia 2</a></h3>
-                    <p id="noticia2Descricao">Descrição da Notícia 2.</p>
+                <li id="noticia-3">
+                    <img src="" alt="Imagem da notícia 3">
+                    <h3><a href="#" id="noticia-titulo-3">Título da Notícia 3</a></h3>
+                    <p id="noticia-descricao-3">Descrição da Notícia 3.</p>
                 </li>
-                <li>
-                    <img id="noticia3Img" src="/Img/default.jpg" alt="Imagem da notícia 3">
-                    <h3><a id="noticia3Titulo" href="#">Título da Notícia 3</a></h3>
-                    <p id="noticia3Descricao">Descrição da Notícia 3.</p>
+                <li id="noticia-4">
+                    <img src="" alt="Imagem da notícia 4">
+                    <h3><a href="#" id="noticia-titulo-4">Título da Notícia 4</a></h3>
+                    <p id="noticia-descricao-4">Descrição da Notícia 4.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Seção Mais Lidas -->
+        <section class="mais-lidas">
+            <h2>Mais Lidas</h2>
+            <ul>
+                <li id="mais-lida-5">
+                    <img src="" alt="Imagem da mais lida 5">
+                    <h3><a href="#" id="mais-lida-titulo-5">Título da Mais Lida 5</a></h3>
+                    <p id="mais-lida-descricao-5">Descrição da Mais Lida 5.</p>
+                </li>
+                <li id="mais-lida-6">
+                    <img src="" alt="Imagem da mais lida 6">
+                    <h3><a href="#" id="mais-lida-titulo-6">Título da Mais Lida 6</a></h3>
+                    <p id="mais-lida-descricao-6">Descrição da Mais Lida 6.</p>
+                </li>
+                <li id="mais-lida-7">
+                    <img src="" alt="Imagem da mais lida 7">
+                    <h3><a href="#" id="mais-lida-titulo-7">Título da Mais Lida 7</a></h3>
+                    <p id="mais-lida-descricao-7">Descrição da Mais Lida 7.</p>
                 </li>
             </ul>
         </section>
     </main>
 
+    <footer class="footer">
+        <p>&copy; 2024 DEI</p>
+        <ul>
+            <li><a href="#">Sobre Nós</a></li>
+            <li><a href="#">Aviso Legal e Política de Privacidade</a></li>
+            <li><a href="#">Termos de Uso</a></li>
+            <li><a href="#">Fale Conosco</a></li>
+            <li><a href="#">Faça parte da nossa equipe</a></li>
+        </ul>
+    </footer>
+
     <script>
         const apiUrl = 'http://localhost:8080/api/items';
-
-        // Função para buscar notícia por ID e atualizar a página
-        async function getItemById(itemId, section) {
+    
+        // Função para buscar item por ID
+        async function getItemById(id) {
             try {
-                const response = await fetch(`${apiUrl}/${itemId}`);
-                if (!response.ok) throw new Error(`Erro ao buscar item: ${response.status}`);
-
+                const response = await fetch(`${apiUrl}/${id}`);
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP! Status: ${response.status}`);
+                }
                 const item = await response.json();
-
-                // Atualizar o conteúdo de acordo com a seção
-                if (section === 'destaque') {
-                    document.getElementById('destaqueTitulo').textContent = item.name;
-                    document.getElementById('destaqueDescricao').textContent = item.description || 'Sem descrição disponível.';
-                    document.getElementById('destaqueImg').src = item.imageUrl || '/Img/default.jpg';
-                } else if (section === 'noticia1') {
-                    document.getElementById('noticia1Titulo').textContent = item.name;
-                    document.getElementById('noticia1Descricao').textContent = item.description || 'Sem descrição disponível.';
-                    document.getElementById('noticia1Img').src = item.imageUrl || '/Img/default.jpg';
-                } else if (section === 'noticia2') {
-                    document.getElementById('noticia2Titulo').textContent = item.name;
-                    document.getElementById('noticia2Descricao').textContent = item.description || 'Sem descrição disponível.';
-                    document.getElementById('noticia2Img').src = item.imageUrl || '/Img/default.jpg';
-                } else if (section === 'noticia3') {
-                    document.getElementById('noticia3Titulo').textContent = item.name;
-                    document.getElementById('noticia3Descricao').textContent = item.description || 'Sem descrição disponível.';
-                    document.getElementById('noticia3Img').src = item.imageUrl || '/Img/default.jpg';
+                return item;
+            } catch (error) {
+                console.error(`Erro ao buscar item ${id}:`, error);
+                return null;
+            }
+        }
+    
+        // Função para preencher a seção Destaque
+        async function preencherDestaque(id) {
+            const item = await getItemById(id);
+            if (item) {
+                document.getElementById('destaque-imagem').src = `/Img/${item.imageUrl}`;
+                document.getElementById('destaque-titulo').textContent = item.name;
+                document.getElementById('destaque-descricao').textContent = item.description;
+            }
+        }
+    
+        // Função para preencher as Últimas Notícias
+        async function preencherUltimasNoticias(ids) {
+            for (const id of ids) {
+                const item = await getItemById(id);
+                if (item) {
+                    document.getElementById(`noticia-imagem-${id}`).src = `/Img/${item.imageUrl}`;
+                    document.getElementById(`noticia-titulo-${id}`).textContent = item.name;
+                    document.getElementById(`noticia-descricao-${id}`).textContent = item.description;
+                }
+            }
+        }
+    
+        // Função para preencher as Mais Lidas
+        async function preencherMaisLidas(ids) {
+            for (const id of ids) {
+                const item = await getItemById(id);
+                if (item) {
+                    document.getElementById(`mais-lida-imagem-${id}`).src = `/Img/${item.imageUrl}`;
+                    document.getElementById(`mais-lida-titulo-${id}`).textContent = item.name;
+                    document.getElementById(`mais-lida-descricao-${id}`).textContent = item.description;
+                }
+            }
+        }
+    
+        // Função para inicializar todas as seções
+        async function inicializarPagina() {
+            // IDs dos itens para cada seção (ajuste conforme necessário)
+            const destaqueId = 1;
+            const ultimasNoticiasIds = [2, 3, 4];
+            const maisLidasIds = [5, 6, 7];
+    
+            await preencherDestaque(destaqueId);
+            await preencherUltimasNoticias(ultimasNoticiasIds);
+            await preencherMaisLidas(maisLidasIds);
+        }
+    
+        // Função para atualizar um item existente
+        async function updateItem() {
+            const id = document.getElementById('updateItemId').value;
+            const name = document.getElementById('updateItemName').value;
+            const description = document.getElementById('updateItemDescription').value;
+            const imageUrl = document.getElementById('updateItemImageUrl').value;
+    
+            try {
+                const response = await fetch(`${apiUrl}/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        description: description,
+                        imageUrl: imageUrl
+                    })
+                });
+    
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP! Status: ${response.status}`);
+                }
+    
+                const result = await response.text();
+                alert(result);
+    
+                inicializarPagina(); 
+    
+            } catch (error) {
+                console.error('Erro ao atualizar item:', error);
+                alert('Erro ao atualizar item. Por favor, tente novamente.');
+            }
+        }
+    
+        // Função para buscar um item por ID
+        async function getItemByIdAndMostrar() {
+            const itemId = document.getElementById('searchItemId').value;
+            try {
+                const item = await getItemById(itemId);
+                if (item) {
+                    alert(`Item encontrado:\nID: ${item.id}\nNome: ${item.name}\nDescrição: ${item.description}`);
+                } else {
+                    alert('Item não encontrado.');
                 }
             } catch (error) {
                 console.error('Erro ao buscar item:', error);
-                alert(`Erro ao buscar item ${itemId}.`);
+                alert('Erro ao buscar item. Por favor, tente novamente.');
             }
         }
-
-        // Inicializar conteúdo com IDs específicos
-        window.onload = () => {
-            getItemById(1, 'destaque');  // ID 1 para destaque
-            getItemById(2, 'noticia1');  // ID 2 para notícia 1
-            getItemById(3, 'noticia2');  // ID 3 para notícia 2
-            getItemById(4, 'noticia3');  // ID 4 para notícia 3
-        };
+    
+        window.onload = inicializarPagina;
     </script>
 </body>
-
 </html>

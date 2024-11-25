@@ -3,188 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Style/style.css">
-    <link rel="icon" href="/Img/dei1.png" type="image/x-icon">
-    <title>Teste da API</title>
+    <title>Teste API DEI</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 20px;
         }
-        input, button {
-            margin: 5px 0;
+        h1, h2 {
+            color: #333;
+        }
+        .form-section {
+            margin-bottom: 40px;
+        }
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+        }
+        .form-section label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-section input, .form-section textarea {
+            margin-bottom: 15px;
+            padding: 8px;
+            font-size: 16px;
+        }
+        .form-section button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #0078D4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        .form-section button:hover {
+            background-color: #005A9E;
+        }
+        .response {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            max-width: 400px;
+            word-wrap: break-word;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <a href="/Pages/Home/home.html">
-                <img src="/Img/dei1.png" class="logo" alt="DEI">
-            </a>
-        </div>
-        <nav class="nav">
-            <ul>
-                <li><a href="/Pages/Politica/politica.html">Política</a></li>
-                <li><a href="/Pages/Economia/economia.html">Economia</a></li>
-                <li><a href="/Pages/Esportes/esportes.html">Esportes</a></li>
-                <li><a href="/Pages/Entretenimento/entretenimento.html">Entretenimento</a></li>
-                <li><a href="/Pages/Blogs/blog.html">Blogs e Colunas</a></li>
-            </ul>
-        </nav>
-    </header>
-    <h1>Teste da API</h1>
-    <section class="destaque">
-        <img src="/Img/trump2.JPG" alt="Imagem de destaque">
-        <div class="destaque-texto">
-            <h2>Rio é claramente a capital energetica do Brasil, diz Claudio Castro ao CNN Talks</h2>
-            <p>Vios da Ambipar. E possivel ser sustentável gerando estados</p>
-        </div>
+    <h1>Teste da API DEI</h1>
+
+    <!-- Seção para Atualizar um Item (PUT) -->
+    <section class="form-section">
+        <h2>Atualizar Item</h2>
+        <form id="updateForm">
+            <label for="updateItemId">ID do Item:</label>
+            <input type="number" id="updateItemId" name="id" required>
+
+            <label for="updateItemName">Novo Nome:</label>
+            <input type="text" id="updateItemName" name="name" required>
+
+            <label for="updateItemDescription">Nova Descrição:</label>
+            <textarea id="updateItemDescription" name="description" rows="3" required></textarea>
+
+            <label for="updateItemImage">Nova Imagem:</label>
+            <input type="file" id="updateItemImage" name="file" accept="image/*">
+
+            <button type="submit">Atualizar Item</button>
+        </form>
+        <div class="response" id="updateResponse"></div>
     </section>
 
+    <!-- Seção para Deletar um Item (DELETE) -->
+    <section class="form-section">
+        <h2>Deletar Item</h2>
+        <form id="deleteForm">
+            <label for="deleteItemId">ID do Item:</label>
+            <input type="number" id="deleteItemId" name="id" required>
 
-   <!-- <form method="POST" action="/api/items/upload" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*">
-        <button type="submit">Enviar</button>
-    </form> -->
-    <section>
-        <h2>Criar Novo Item</h2>
-        <input type="text" id="createItemName" placeholder="Nome do item">
-        <input type="text" id="createItemDescription" placeholder="Descrição do item">
-        <input type="file" id="createItemImage" accept="image/*">  <!-- Escolher imagem -->
-        <button onclick="createItem()">Criar Item</button>
-    </section>
-
-    <section>
-        <h2>Atualizar matéria</h2>
-        <input type="number" id="updateItemId" placeholder="ID Comentário">
-        <input type="text" id="updateItemName" placeholder="Novo Comentário">
-        <input type="text" id="updateItemDescription" placeholder="Nova Descrição">
-        <input type="file" id="updateItemImage" accept="image/*">  <!-- Campo para escolher a nova imagem -->
-        <button onclick="updateItem()">Atualizar</button>
-    </section>
-
-    <section>
-        <h2>Deletar Comentario</h2>
-        <input type="number" id="deleteItemId" placeholder="ID do Item">
-        <button onclick="deleteItem()">Deletar</button>
+            <button type="submit">Deletar Item</button>
+        </form>
+        <div class="response" id="deleteResponse"></div>
     </section>
 
     <script>
         const apiUrl = 'http://localhost:8080/api/items';
 
-        async function createItem() {
-    const name = document.getElementById('createItemName').value;
-    const description = document.getElementById('createItemDescription').value;
-    const imageFile = document.getElementById('createItemImage').files[0];
+        // Função para atualizar um item existente com upload de imagem
+        async function updateItem(event) {
+            event.preventDefault(); // Prevenir o comportamento padrão do formulário
 
-    let imageUrl = '';
-    if (imageFile) {
-        imageUrl = '/uploads/' + imageFile.name;  // Supondo que você armazena as imagens na pasta "/uploads"
-    }
+            const id = document.getElementById('updateItemId').value;
+            const name = document.getElementById('updateItemName').value;
+            const description = document.getElementById('updateItemDescription').value;
+            const imageInput = document.getElementById('updateItemImage');
+            const file = imageInput.files[0];
 
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, description, imageUrl }) 
-        });
+            let imageUrl = null;
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const result = await response.text();
-        alert(result);
-        getAllItems(); 
+            if (file) {
+                // Upload da imagem
+                const formData = new FormData();
+                formData.append('file', file);
 
-    } catch (error) {
-        console.error('Error creating item:', error);
-        alert('Error creating item. Please try again later.'); 
-    }
-}
+                try {
+                    const uploadResponse = await fetch(`${apiUrl}/upload`, {
+                        method: 'POST',
+                        body: formData
+                    });
 
-async function getAllItems() {
-    try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const items = await response.json();
-        const itemsList = document.getElementById('itemsList');
-        itemsList.innerHTML = '';  // Limpa a lista antes de adicionar novos itens
-        items.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = `${item.id} - ${item.name}`;
-            itemsList.appendChild(li);
-        });
-    } catch (error) {
-        console.error('Error fetching items:', error);
-        alert('Erro ao carregar os itens.');
-    }
-}
+                    if (!uploadResponse.ok) {
+                        const errorText = await uploadResponse.text();
+                        throw new Error(`Erro no upload da imagem! Status: ${uploadResponse.status} - ${errorText}`);
+                    }
 
-        window.onload = getAllItems; 
+                    imageUrl = await uploadResponse.text(); // Recebe o path da imagem
+                } catch (error) {
+                    const updateResponseDiv = document.getElementById('updateResponse');
+                    updateResponseDiv.style.color = 'red';
+                    updateResponseDiv.textContent = `Erro no upload da imagem: ${error.message}`;
+                    console.error('Erro no upload da imagem:', error);
+                    return;
+                }
+            }
 
-        async function updateItem() {
-    const id = document.getElementById('updateItemId').value;
-    const name = document.getElementById('updateItemName').value;
-    const description = document.getElementById('updateItemDescription').value;
-    const imageFile = document.getElementById('updateItemImage').files[0];
+            try {
+                // Preparar os dados para a atualização
+                const updateData = {
+                    name: name,
+                    description: description,
+                    imageUrl: imageUrl // Pode ser null se não houver nova imagem
+                };
 
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('description', description);
-    if (imageFile) {
-        formData.append('file', imageFile);
-    }
+                const response = await fetch(`${apiUrl}/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateData)
+                });
 
-    try {
-        const response = await fetch(`http://localhost:8080/api/items/${id}`, {
-            method: 'PUT',
-            body: formData  // Enviando os dados com a imagem
-        });
+                const result = await response.text();
+                const updateResponseDiv = document.getElementById('updateResponse');
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+                if (response.ok) {
+                    updateResponseDiv.style.color = 'green';
+                    updateResponseDiv.textContent = `Sucesso: ${result}`;
+                } else {
+                    updateResponseDiv.style.color = 'red';
+                    updateResponseDiv.textContent = `Erro: ${result}`;
+                }
+
+            } catch (error) {
+                const updateResponseDiv = document.getElementById('updateResponse');
+                updateResponseDiv.style.color = 'red';
+                updateResponseDiv.textContent = `Erro ao atualizar item: ${error.message}`;
+                console.error('Erro ao atualizar item:', error);
+            }
         }
 
-        const result = await response.text();
-        alert(result);
-        getAllItems(); 
+        // Função para deletar um item existente
+        async function deleteItem(event) {
+            event.preventDefault(); // Prevenir o comportamento padrão do formulário
 
-    } catch (error) {
-        console.error('Error updating item:', error);
-        alert('Error updating item. Please try again.'); 
-    }
-}
+            const id = document.getElementById('deleteItemId').value;
 
-async function deleteItem() {
-    const id = document.getElementById('deleteItemId').value;
-    if (!id) {
-        alert('Por favor, forneça um ID de item.');
-        return;
-    }
+            if (!confirm(`Tem certeza que deseja deletar o item com ID ${id}?`)) {
+                return; // Cancelar a ação se o usuário não confirmar
+            }
 
-    try {
-        const response = await fetch(`${apiUrl}/${id}`, {
-            method: 'DELETE'
-        });
+            try {
+                const response = await fetch(`${apiUrl}/${id}`, {
+                    method: 'DELETE'
+                });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+                const result = await response.text();
+                const deleteResponseDiv = document.getElementById('deleteResponse');
+
+                if (response.ok) {
+                    deleteResponseDiv.style.color = 'green';
+                    deleteResponseDiv.textContent = `Sucesso: ${result}`;
+                } else {
+                    deleteResponseDiv.style.color = 'red';
+                    deleteResponseDiv.textContent = `Erro: ${result}`;
+                }
+
+            } catch (error) {
+                const deleteResponseDiv = document.getElementById('deleteResponse');
+                deleteResponseDiv.style.color = 'red';
+                deleteResponseDiv.textContent = `Erro ao deletar item: ${error.message}`;
+                console.error('Erro ao deletar item:', error);
+            }
         }
 
-        const result = await response.text();
-        alert(result);
-        getAllItems();  // Recarrega a lista de itens
-
-    } catch (error) {
-        console.error('Error deleting item:', error);
-        alert('Error deleting item. Please try again.'); 
-    }
-}
+        // Associar as funções aos formulários
+        document.getElementById('updateForm').addEventListener('submit', updateItem);
+        document.getElementById('deleteForm').addEventListener('submit', deleteItem);
     </script>
 </body>
 </html>
