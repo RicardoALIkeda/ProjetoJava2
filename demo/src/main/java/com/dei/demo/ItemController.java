@@ -27,25 +27,24 @@ public class ItemController {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
-    @GetMapping("/api/itens/{id}")
-public ResponseEntity<Item> getItemById(@PathVariable int id) {
-    Item item = itemManager.getItemById(id); // Implemente o método getItemById no ItemManager
-    if (item != null) {
-        return ResponseEntity.ok(item);
-    } else {
-        return ResponseEntity.notFound().build();
-    }
-}
+    
     @GetMapping
     public List<Item> getAllItems() {
         return itemManager.getItems();
     }
-
+    @GetMapping("/noticias")
+    public List<Item> getUltimasNoticias() {
+        return itemManager.getUltimasNoticias();
+    }
     @PostMapping
     public String createItem(@RequestBody String name) {
         itemManager.addItem(name);
         return "Item criado: " + name;
     }
+    @GetMapping("/{id}")
+public Item getItemById(@PathVariable int id) {
+    return itemManager.getItemById(id);
+}
 
     @PutMapping("/{id}")
     public String updateItem(@PathVariable int id, @RequestBody String name) {

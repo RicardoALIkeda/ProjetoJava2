@@ -40,7 +40,11 @@
                 <p>Vios da Ambipar. E possivel ser sustentável gerando estados</p>
             </div>
         </section>
-
+        <section>
+            <input type="number" id="searchItemId" placeholder="Enter item ID">
+            <button onclick="getItemById()">Get Item</button>
+        </section>
+        
         <section class="ultimas-noticias">
             <h2>Últimas Notícias</h2>
             <ul>
@@ -65,17 +69,63 @@
         <section class="mais-lidas">
             <h2>Mais Lidas</h2>
             <ul>
-                <li><a href="#">Bolsonaro sanciona projeto que...</a></li>
-                <li><a href="#">Governo vai liberar R$ 1 bilhão...</a></li>
-                <li><a href="#">Chuvas no Rio Grande do Sul...</a></li>
                 <ul id="itemsList"></ul>
             </ul>
-        </section>
-        
-    
+        </section>    
         <script>
             
             const apiUrl = 'http://localhost:8080/api/items';
+            async function updateItem() {
+    const id = document.getElementById('updateItemId').value;
+    const name = document.getElementById('updateItemName').value;
+    try {
+        const response = await fetch(`${apiUrl}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(name)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.text();
+        alert(result);
+
+        getAllItems(); 
+
+    } catch (error) {
+        console.error('Error updating item:', error);
+        alert('Error updating item. Please try again.'); 
+    }}
+    async function getItemById() {
+  const itemId = document.getElementById('searchItemId').value; // Assuming you have an input with id 'searchItemId'
+
+  try {
+    const response = await fetch(`${apiUrl}/${itemId}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const item = await response.json();
+
+    // Now you have the item object, do something with it
+    // For example, display it on the page:
+    const itemDetailsDiv = document.getElementById('itemDetails'); // Assuming you have a div with id 'itemDetails'
+    itemDetailsDiv.innerHTML = `
+      <h3>${item.name}</h3>
+      <p>ID: ${item.id}</p>
+      {/* Add other details as needed */}
+    `;
+
+  } catch (error) {
+    console.error('Error getting item:', error);
+    // Handle the error, e.g., display an error message to the user
+    alert('Error getting item. Please try again later.');
+  }
+}
     
             async function createItem() {
         const name = document.getElementById('createItemName').value;
@@ -142,28 +192,35 @@
             alert('Error updating item. Please try again.'); 
         }
     }
-    
-    async function deleteItem() {
-        const id = document.getElementById('deleteItemId').value;
-        try {
-            const response = await fetch(`${apiUrl}/${id}`, {
-                method: 'DELETE'
+            async function getUltimasNoticias() {
+            const response = await fetch(`${apiUrl}/noticias`);
+            const noticias = await response.json();
+            const ultimasNoticiasList = document.querySelector('.ultimas-noticias ul');
+            ultimasNoticiasList.innerHTML = '';
+            noticias.forEach(noticia => {
+                const li = document.createElement('li');
+                const img = document.createElement('img');
+                img.src = noticia.imagem; 
+                img.alt = 'Imagem da notícia';
+                const h3 = document.createElement('h3');
+                h3.textContent = noticia.name;
+                const p = document.createElement('p');
+                p.textContent = noticia.resumo; 
+                li.appendChild(img);
+                li.appendChild(h3);
+                li.appendChild(p);
+                ultimasNoticiasList.appendChild(li);
             });
-    
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-    
-            const result = await response.text();
-            alert(result);
-    
-            getAllItems();
-    
-        } catch (error) {
-            console.error('Error deleting item:', error);
-            alert('Error deleting item. Please try again.'); 
         }
-    }
+
+        window.onload = () => {
+            getAllItems();
+            getUltimasNoticias();
+        };
+        setInterval(getAllItems, 5000);
+        setInterval(getUltimasNoticias, 5000);
+
+    
         </script>
 </body>
 

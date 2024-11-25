@@ -43,38 +43,20 @@
     </section>
 
 
-    <form method="POST" action="/api/items/upload" enctype="multipart/form-data">
+   <!-- <form method="POST" action="/api/items/upload" enctype="multipart/form-data">
         <input type="file" name="file" accept="image/*">
         <button type="submit">Enviar</button>
-      </form>
+    </form> -->
     <section class="mais-lidas">
         <h2>Mais Lidas</h2>
         <ul>
-            <li><a href="#">Bolsonaro sanciona projeto que...</a></li>
-            <li><a href="#">Governo vai liberar R$ 1 bilhão...</a></li>
-            <li><a href="#">Chuvas no Rio Grande do Sul...</a></li>
+
             <ul id="itemsList"></ul>
         </ul>
     </section>
-    <section>
-        <h2>Título</h2>
-        <input type="text" id="createItemName" placeholder="">
-        <button onclick="createItem()">Criar</button>
-    </section>
-    <section>
-        <h2>Matéria</h2>
-        <input type="text" id="createItemName" placeholder="">
-        <button onclick="createItem()">Criar</button>
-    </section>
-
 
     <section>
-        <h2>Mostrar todos os comentarios</h2>
-        <ul id="itemsList"></ul>
-    </section>
-
-    <section>
-        <h2>Atualizar Comentario</h2>
+        <h2>Atualizar matéria</h2>
         <input type="number" id="updateItemId" placeholder="ID Comentario">
         <input type="text" id="updateItemName" placeholder="Novo Comentario">
         <button onclick="updateItem()">Atualizar</button>
@@ -121,7 +103,7 @@
             items.forEach(item => {
                 const li = document.createElement('li');  
 
-                li.textContent = `${item.name}`;
+                li.textContent = `${item.id} ${item.name}`;
                 itemsList.appendChild(li);
             });
         }
