@@ -2,10 +2,8 @@ package com.dei.demo;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,79 +15,63 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 @RestController
 @RequestMapping("/api/items")
 public class ItemController {
 
     private final ItemManager itemManager = new ItemManager();
 
-    @Value("${file.upload-dir}")
-    private String uploadDir;
-
-    
+    // Obter todos os itens
     @GetMapping
-    public List<Item> getAllItems() {
-        return itemManager.getItems();
-    }
-    @GetMapping("/noticias")
-    public List<Item> getUltimasNoticias() {
-        return itemManager.getUltimasNoticias();
-    }
-    @PostMapping
-    public String createItem(@RequestBody String name) {
-        itemManager.addItem(name);
-        return "Item criado: " + name;
-    }
-    @GetMapping("/{id}")
-public Item getItemById(@PathVariable int id) {
-    return itemManager.getItemById(id);
-}
-
-    @PutMapping("/{id}")
-    public String updateItem(@PathVariable int id, @RequestBody String name) {
-        boolean updated = itemManager.updateItem(id, name);
-        if (updated) {
-            return "Item atualizado: " + name;
-        } else {
-            return "Item não encontrado";
-        }
+    public ResponseEntity<Map<Integer, Item>> getAllItems() {
+        Map<Integer, Item> items = itemManager.getItems();
+        return ResponseEntity.ok(items);
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteItem(@PathVariable int id) {
-        boolean deleted = itemManager.deleteItem(id);
-        if (deleted) {
-            return "Item deletado";
-        } else {
-            return "Item não encontrado";
-        }
-    }
-
+    // Criar um novo item
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("Falha no upload: o arquivo está vazio");
-        }
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+        // Aqui você pode salvar a imagem no servidor
+        String filename = file.getOriginalFilename();
+        String filePath = "uploads/" + filename;
+        File destinationFile = new File(filePath);
+        file.transferTo(destinationFile);
+    
+        // Retornar a URL da imagem salva
+        return ResponseEntity.ok("Imagem salva com sucesso! URL: " + filePath);
+    }
 
-        try {
-            File uploadDirFile = new File(uploadDir);
-        
-            if (!uploadDirFile.exists()) {
-                boolean created = uploadDirFile.mkdirs(); // Tenta criar o diretório
-                if (!created) {
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                         .body("Não foi possível criar o diretório de upload");
-                }
-            }
-        
-            String filePath = uploadDirFile.getAbsolutePath() + "/" + file.getOriginalFilename();
-            file.transferTo(new File(filePath));
-        
-            return ResponseEntity.ok("Arquivo enviado com sucesso: " + filePath);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                 .body("Falha no upload do arquivo: " + e.getMessage());
+
+    // Obter item por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Item> getItemById(@PathVariable int id) {
+        Item item = itemManager.getItemById(id);
+        if (item != null) {
+            return ResponseEntity.ok(item);
         }
+        return ResponseEntity.notFound().build();
+    }
+
+    // Atualizar item por ID
+    @PutMapping("/{id}")
+   public ResponseEntity<String> updateItem(@PathVariable int id, @RequestBody Item updatedItem) {
+    Item item = itemManager.getItemById(id);
+    if (item != null) {
+        item.setName(updatedItem.getName());
+        item.setDescription(updatedItem.getDescription());
+        item.setImageUrl(updatedItem.getImageUrl());
+        return ResponseEntity.ok("Item atualizado com sucesso.");
+    }
+    return ResponseEntity.notFound().build();
+}
+    // Deletar item por ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteItem(@PathVariable int id) {
+        Item item = itemManager.getItemById(id);
+        if (item != null) {
+            itemManager.getItems().remove(id);
+            return ResponseEntity.ok("Item deletado");
+        }
+        return ResponseEntity.notFound().build();
     }
 }
