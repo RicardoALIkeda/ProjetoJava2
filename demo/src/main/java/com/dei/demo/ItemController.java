@@ -51,9 +51,9 @@ public class ItemController {
             @RequestBody Item updatedItem) {
         
         // Caso o imageUrl não seja enviado, não atualizar
-        String imageUrl = updatedItem.getImageUrl();
+        // String imageUrl = updatedItem.getImageUrl();
 
-        boolean updated = itemManager.updateItem(id, updatedItem.getName(), updatedItem.getDescription(), imageUrl);
+        boolean updated = itemManager.updateItem(id, updatedItem.getName(), updatedItem.getDescription(), updatedItem.getImageUrl());
         if (updated) {
             return ResponseEntity.ok("Item atualizado com sucesso.");
         } else {
@@ -91,7 +91,7 @@ public class ItemController {
             String filePath = uploadDirFile.getAbsolutePath() + "/" + file.getOriginalFilename();
             file.transferTo(new File(filePath));
 
-            return ResponseEntity.ok("/Img/" + file.getOriginalFilename()); // Retorna o path da imagem
+            return ResponseEntity.ok(file.getOriginalFilename()); // Retorna o path da imagem
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Falha no upload do arquivo: " + e.getMessage());

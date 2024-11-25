@@ -44,17 +44,17 @@
             <h2>Últimas Notícias</h2>
             <ul>
                 <li id="noticia-2">
-                    <img src="" alt="Imagem da notícia 2">
+                    <img id="noticia-imagem-2" src="" alt="Imagem da notícia 2">
                     <h3><a href="#" id="noticia-titulo-2">Título da Notícia 2</a></h3>
                     <p id="noticia-descricao-2">Descrição da Notícia 2.</p>
                 </li>
                 <li id="noticia-3">
-                    <img src="" alt="Imagem da notícia 3">
+                    <img id="noticia-imagem-3" src="" alt="Imagem da notícia 3">
                     <h3><a href="#" id="noticia-titulo-3">Título da Notícia 3</a></h3>
                     <p id="noticia-descricao-3">Descrição da Notícia 3.</p>
                 </li>
                 <li id="noticia-4">
-                    <img src="" alt="Imagem da notícia 4">
+                    <img id="noticia-imagem-4" src="" alt="Imagem da notícia 4">
                     <h3><a href="#" id="noticia-titulo-4">Título da Notícia 4</a></h3>
                     <p id="noticia-descricao-4">Descrição da Notícia 4.</p>
                 </li>
@@ -66,17 +66,17 @@
             <h2>Mais Lidas</h2>
             <ul>
                 <li id="mais-lida-5">
-                    <img src="" alt="Imagem da mais lida 5">
+                    <img id="mais-lida-imagem-5" src="" alt="Imagem da mais lida 5">
                     <h3><a href="#" id="mais-lida-titulo-5">Título da Mais Lida 5</a></h3>
                     <p id="mais-lida-descricao-5">Descrição da Mais Lida 5.</p>
                 </li>
                 <li id="mais-lida-6">
-                    <img src="" alt="Imagem da mais lida 6">
+                    <img id="mais-lida-imagem-6" src="" alt="Imagem da mais lida 6">
                     <h3><a href="#" id="mais-lida-titulo-6">Título da Mais Lida 6</a></h3>
                     <p id="mais-lida-descricao-6">Descrição da Mais Lida 6.</p>
                 </li>
                 <li id="mais-lida-7">
-                    <img src="" alt="Imagem da mais lida 7">
+                    <img id="mais-lida-imagem-7" src="" alt="Imagem da mais lida 7">
                     <h3><a href="#" id="mais-lida-titulo-7">Título da Mais Lida 7</a></h3>
                     <p id="mais-lida-descricao-7">Descrição da Mais Lida 7.</p>
                 </li>
@@ -115,9 +115,10 @@
     
         // Função para preencher a seção Destaque
         async function preencherDestaque(id) {
+            console.log('Preenchendo destaque com ID:', id);
             const item = await getItemById(id);
             if (item) {
-                document.getElementById('destaque-imagem').src = `/Img/${item.imageUrl}`;
+                document.getElementById('destaque-imagem').src = `/uploads/${item.imageUrl}`;
                 document.getElementById('destaque-titulo').textContent = item.name;
                 document.getElementById('destaque-descricao').textContent = item.description;
             }
@@ -125,10 +126,11 @@
     
         // Função para preencher as Últimas Notícias
         async function preencherUltimasNoticias(ids) {
+            console.log('Preenchendo últimas notícias com IDs:', ids);
             for (const id of ids) {
                 const item = await getItemById(id);
                 if (item) {
-                    document.getElementById(`noticia-imagem-${id}`).src = `/Img/${item.imageUrl}`;
+                    document.getElementById(`noticia-imagem-${id}`).src = `/uploads/${item.imageUrl}`;
                     document.getElementById(`noticia-titulo-${id}`).textContent = item.name;
                     document.getElementById(`noticia-descricao-${id}`).textContent = item.description;
                 }
@@ -137,10 +139,11 @@
     
         // Função para preencher as Mais Lidas
         async function preencherMaisLidas(ids) {
+            console.log('Preenchendo mais lidas com IDs:', ids);
             for (const id of ids) {
                 const item = await getItemById(id);
                 if (item) {
-                    document.getElementById(`mais-lida-imagem-${id}`).src = `/Img/${item.imageUrl}`;
+                    document.getElementById(`mais-lida-imagem-${id}`).src = `/uploads/${item.imageUrl}`;
                     document.getElementById(`mais-lida-titulo-${id}`).textContent = item.name;
                     document.getElementById(`mais-lida-descricao-${id}`).textContent = item.description;
                 }
