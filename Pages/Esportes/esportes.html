@@ -33,72 +33,187 @@
     </header>
 
     <main class="main">
+        <!-- Seção Destaque -->
         <section class="destaque">
-            <img src="/Img/IMG_1549.JPG" alt="Imagem de destaque">
-            <div class="destaque-texto">
-                <h2>Rio é claramente a capital energetica do Brasil, diz Claudio Castro ao CNN Talks</h2>
-                <p>Vios da Ambipar. E possivel ser sustentável gerando estados</p>
+            <img id="destaque-imagem" src="" alt="Imagem de destaque">
+            <div class="destaque-texto" id="destaque-texto">
+                <h2 id="destaque-titulo">Título de Destaque</h2>
+                <p id="destaque-descricao">Descrição da notícia de destaque.</p>
             </div>
         </section>
-
+        
+        <!-- Seção Últimas Notícias -->
         <section class="ultimas-noticias">
             <h2>Últimas Notícias</h2>
             <ul>
-                <li>
-                    <img src="/Img/IMG_0871.JPG" alt="Imagem da notícia 1">
-                    <h3><a href="#">Homem, branco, de centro direita voja...</a></h3>
-                    <p>Por preciominante dos profoltos cloltos um 2024...</p>
+                <li id="noticia-2">
+                    <img id="noticia-imagem-2" src="" alt="Imagem da notícia 2">
+                    <h3><a href="#" id="noticia-titulo-2">Título da Notícia 2</a></h3>
+                    <p id="noticia-descricao-2">Descrição da Notícia 2.</p>
                 </li>
-                <li>
-                    <img src="/Img/IMG_1512.JPG" alt="Imagem da notícia 2">
-                    <h3><a href="#">Eleição apm Fortakos Fernandes vonico om...</a></h3>
-                    <p>Anavitória de Nunes vom rachoada de...</p>
+                <li id="noticia-3">
+                    <img id="noticia-imagem-3" src="" alt="Imagem da notícia 3">
+                    <h3><a href="#" id="noticia-titulo-3">Título da Notícia 3</a></h3>
+                    <p id="noticia-descricao-3">Descrição da Notícia 3.</p>
                 </li>
-                <li>
-                    <img src="/Img/IMG_0908.jpg" alt="Imagem da notícia 3">
-                    <h3><a href="#">Funcionária é demitida após...</a></h3>
-                    <p>Identificar cliente como...</p>
+                <li id="noticia-4">
+                    <img id="noticia-imagem-4" src="" alt="Imagem da notícia 4">
+                    <h3><a href="#" id="noticia-titulo-4">Título da Notícia 4</a></h3>
+                    <p id="noticia-descricao-4">Descrição da Notícia 4.</p>
                 </li>
             </ul>
         </section>
 
+        <!-- Seção Mais Lidas -->
         <section class="mais-lidas">
             <h2>Mais Lidas</h2>
             <ul>
-                <li><a href="#">Bolsonaro sanciona projeto que...</a></li>
-                <li><a href="#">Governo vai liberar R$ 1 bilhão...</a></li>
-                <li><a href="#">Chuvas no Rio Grande do Sul...</a></li>
+                <li id="mais-lida-5">
+                    <img id="mais-lida-imagem-5" src="" alt="Imagem da mais lida 5">
+                    <h3><a href="#" id="mais-lida-titulo-5">Título da Mais Lida 5</a></h3>
+                    <p id="mais-lida-descricao-5">Descrição da Mais Lida 5.</p>
+                </li>
+                <li id="mais-lida-6">
+                    <img id="mais-lida-imagem-6" src="" alt="Imagem da mais lida 6">
+                    <h3><a href="#" id="mais-lida-titulo-6">Título da Mais Lida 6</a></h3>
+                    <p id="mais-lida-descricao-6">Descrição da Mais Lida 6.</p>
+                </li>
+                <li id="mais-lida-7">
+                    <img id="mais-lida-imagem-7" src="" alt="Imagem da mais lida 7">
+                    <h3><a href="#" id="mais-lida-titulo-7">Título da Mais Lida 7</a></h3>
+                    <p id="mais-lida-descricao-7">Descrição da Mais Lida 7.</p>
+                </li>
             </ul>
         </section>
     </main>
 
     <footer class="footer">
+        <p>&copy; 2024 DEI</p>
         <ul>
-            <li><a href="/Pages/SobreNos/sobre.html">Sobre Nós</a></li>
-            <li><a href="/Pages/PoliticasDePrivacidade/politicas.html">Política de Privacidade</a></li>
-            <li><a href="/Pages/TermosDeUso/termos.html">Termos de Uso</a></li>
-            <li><a href="/Pages/FaleConosco/fale.html">Fale Conosco</a></li>
+            <li><a href="#">Sobre Nós</a></li>
+            <li><a href="#">Aviso Legal e Política de Privacidade</a></li>
+            <li><a href="#">Termos de Uso</a></li>
+            <li><a href="#">Fale Conosco</a></li>
+            <li><a href="#">Faça parte da nossa equipe</a></li>
         </ul>
-        <p>&copy; 2024 DEI. Todos os direitos reservados.</p>
     </footer>
+
     <script>
-        // Função para buscar todos os itens da API
-        async function fetchItems() {
+        const apiUrl = 'http://localhost:8080/api/items';
+    
+        // Função para buscar item por ID
+        async function getItemById(id) {
             try {
-                const response = await fetch('/api/items'); // Ajuste a URL conforme necessário
+                const response = await fetch(`${apiUrl}/${id}`);
                 if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
+                    throw new Error(`Erro HTTP! Status: ${response.status}`);
                 }
-                const items = await response.json();
-                const itemsContainer = document.getElementById('items-container');
-                itemsContainer.innerHTML = items.map(item => `<p>${item}</p>`).join('');
+                const item = await response.json();
+                return item;
             } catch (error) {
-                console.error('Erro ao buscar itens:', error);
+                console.error(`Erro ao buscar item ${id}:`, error);
+                return null;
             }
         }
-
-        // Chama a função para buscar itens quando a página carrega
-        window.onload = fetchItems;
+    
+        // Função para preencher a seção Destaque
+        async function preencherDestaque(id) {
+            const item = await getItemById(id);
+            if (item) {
+                document.getElementById('destaque-imagem').src = `/uploads/${item.imageUrl}`;
+                document.getElementById('destaque-titulo').textContent = item.name;
+                document.getElementById('destaque-descricao').textContent = item.description;
+            }
+        }
+    
+        // Função para preencher as Últimas Notícias
+        async function preencherUltimasNoticias(ids) {
+            for (const id of ids) {
+                const item = await getItemById(id);
+                if (item) {
+                    document.getElementById(`noticia-imagem-${id}`).src = `/uploads/${item.imageUrl}`;
+                    document.getElementById(`noticia-titulo-${id}`).textContent = item.name;
+                    document.getElementById(`noticia-descricao-${id}`).textContent = item.description;
+                }
+            }
+        }
+    
+        // Função para preencher as Mais Lidas
+        async function preencherMaisLidas(ids) {
+            for (const id of ids) {
+                const item = await getItemById(id);
+                if (item) {
+                    document.getElementById(`mais-lida-imagem-${id}`).src = `/uploads/${item.imageUrl}`;
+                    document.getElementById(`mais-lida-titulo-${id}`).textContent = item.name;
+                    document.getElementById(`mais-lida-descricao-${id}`).textContent = item.description;
+                }
+            }
+        }
+    
+        // Função para inicializar todas as seções
+        async function inicializarPagina() {
+            // IDs dos itens para cada seção (ajuste conforme necessário)
+            const destaqueId = 1;
+            const ultimasNoticiasIds = [2, 3, 4];
+            const maisLidasIds = [5, 6, 7];
+    
+            await preencherDestaque(destaqueId);
+            await preencherUltimasNoticias(ultimasNoticiasIds);
+            await preencherMaisLidas(maisLidasIds);
+        }
+    
+        // Função para atualizar um item existente
+        async function updateItem() {
+            const id = document.getElementById('updateItemId').value;
+            const name = document.getElementById('updateItemName').value;
+            const description = document.getElementById('updateItemDescription').value;
+            const imageUrl = document.getElementById('updateItemImageUrl').value;
+    
+            try {
+                const response = await fetch(`${apiUrl}/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        description: description,
+                        imageUrl: imageUrl
+                    })
+                });
+    
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP! Status: ${response.status}`);
+                }
+    
+                const result = await response.text();
+                alert(result);
+    
+                inicializarPagina(); 
+    
+            } catch (error) {
+                console.error('Erro ao atualizar item:', error);
+                alert('Erro ao atualizar item. Por favor, tente novamente.');
+            }
+        }
+    
+        // Função para buscar um item por ID
+        async function getItemByIdAndMostrar() {
+            const itemId = document.getElementById('searchItemId').value;
+            try {
+                const item = await getItemById(itemId);
+                if (item) {
+                    alert(`Item encontrado:\nID: ${item.id}\nNome: ${item.name}\nDescrição: ${item.description}`);
+                } else {
+                    alert('Item não encontrado.');
+                }
+            } catch (error) {
+                console.error('Erro ao buscar item:', error);
+                alert('Erro ao buscar item. Por favor, tente novamente.');
+            }
+        }
+    
+        window.onload = inicializarPagina;
     </script>
 </body>
 

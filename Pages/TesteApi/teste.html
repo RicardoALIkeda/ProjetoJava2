@@ -1,91 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste API DEI</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Tela Admin</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 20px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        .form-section {
-            margin-bottom: 40px;
-        }
-        .form-section form {
-            display: flex;
-            flex-direction: column;
-            max-width: 400px;
-        }
-        .form-section label {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-section input, .form-section textarea {
-            margin-bottom: 15px;
-            padding: 8px;
-            font-size: 16px;
-        }
-        .form-section button {
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #0078D4;
-            color: white;
-            border: none;
-            border-radius: 4px;
-        }
-        .form-section button:hover {
-            background-color: #005A9E;
-        }
-        .response {
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-            max-width: 400px;
-            word-wrap: break-word;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
     </style>
 </head>
+
 <body>
-    <h1>Teste da API DEI</h1>
+    <header class="header">
+        <div class="logo">
+            <a href="/Pages/Home/home.html">
+                <img src="/Img/dei1.png" class="logo" alt="DEI">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="/Pages/Politica/politica.html">Política</a></li>
+                <li><a href="/Pages/Economia/economia.html">Economia</a></li>
+                <li><a href="/Pages/Esportes/esportes.html">Esportes</a></li>
+                <li><a href="/Pages/Entretenimento/entretenimento.html">Entretenimento</a></li>
+                <li><a href="/Pages/Blogs/blog.html">Blogs e Colunas</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main">
 
-    <!-- Seção para Atualizar um Item (PUT) -->
-    <section class="form-section">
-        <h2>Atualizar Item</h2>
-        <form id="updateForm">
-            <label for="updateItemId">ID do Item:</label>
-            <input type="number" id="updateItemId" name="id" required>
+        <h1>Tela Admin</h1>
+        <div class="flex">
+            <section class="form-section">
+                <h2>Atualizar Item</h2>
+                <form id="updateForm">
+                    <label for="updateItemId">ID do Item:</label>
+                    <input type="number" id="updateItemId" name="id" required>
 
-            <label for="updateItemName">Novo Nome:</label>
-            <input type="text" id="updateItemName" name="name" required>
+                    <label for="updateItemName">Novo Nome:</label>
+                    <input type="text" id="updateItemName" name="name" required>
 
-            <label for="updateItemDescription">Nova Descrição:</label>
-            <textarea id="updateItemDescription" name="description" rows="3" required></textarea>
+                    <label for="updateItemDescription">Nova Descrição:</label>
+                    <textarea id="updateItemDescription" name="description" rows="3" required></textarea>
 
-            <label for="updateItemImage">Nova Imagem:</label>
-            <input type="file" id="updateItemImage" name="file" accept="image/*">
+                    <label for="updateItemImage">Nova Imagem:</label>
+                    <input type="file" id="updateItemImage" name="file" accept="image/*">
 
-            <button type="submit">Atualizar Item</button>
-        </form>
-        <div class="response" id="updateResponse"></div>
-    </section>
+                    <button type="submit">Atualizar Item</button>
+                </form>
+                <div class="response" id="updateResponse"></div>
+            </section>
 
-    <!-- Seção para Deletar um Item (DELETE) -->
-    <section class="form-section">
-        <h2>Deletar Item</h2>
-        <form id="deleteForm">
-            <label for="deleteItemId">ID do Item:</label>
-            <input type="number" id="deleteItemId" name="id" required>
+            <!-- Seção para Deletar um Item (DELETE) -->
+            <section class="form-section">
+                <h2>Deletar Item</h2>
+                <form id="deleteForm">
+                    <label for="deleteItemId">ID do Item:</label>
+                    <input type="number" id="deleteItemId" name="id" required>
 
-            <button type="submit">Deletar Item</button>
-        </form>
-        <div class="response" id="deleteResponse"></div>
-    </section>
+                    <button type="submit">Deletar Item</button>
+                </form>
+                <div class="response" id="deleteResponse"></div>
+            </section>
+            <!-- Seção para Atualizar um Item (PUT) -->
+
+        </div>
+    </div>
 
     <script>
         const apiUrl = 'http://localhost:8080/api/items';
@@ -202,4 +183,5 @@
         document.getElementById('deleteForm').addEventListener('submit', deleteItem);
     </script>
 </body>
+
 </html>

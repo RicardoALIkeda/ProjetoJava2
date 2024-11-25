@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEI News | Notícias Ao Vivo do Brasil e do Mundo</title>
     <link rel="stylesheet" href="/Style/style.css">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/Img/dei1.png" type="image/x-icon">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     </style>
@@ -115,7 +115,6 @@
     
         // Função para preencher a seção Destaque
         async function preencherDestaque(id) {
-            console.log('Preenchendo destaque com ID:', id);
             const item = await getItemById(id);
             if (item) {
                 document.getElementById('destaque-imagem').src = `/uploads/${item.imageUrl}`;
@@ -126,7 +125,6 @@
     
         // Função para preencher as Últimas Notícias
         async function preencherUltimasNoticias(ids) {
-            console.log('Preenchendo últimas notícias com IDs:', ids);
             for (const id of ids) {
                 const item = await getItemById(id);
                 if (item) {
@@ -139,7 +137,6 @@
     
         // Função para preencher as Mais Lidas
         async function preencherMaisLidas(ids) {
-            console.log('Preenchendo mais lidas com IDs:', ids);
             for (const id of ids) {
                 const item = await getItemById(id);
                 if (item) {

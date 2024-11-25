@@ -9,13 +9,13 @@ public class ItemManager {
     private int nextId = 1;
 
     public ItemManager() {
-        addItem(new Item(nextId++, "Destaque Principal", "Descrição da notícia de destaque.", ""));
-        addItem(new Item(nextId++, "Trump vence eleição", "Descrição da notícia 2.", ""));
-        addItem(new Item(nextId++, "Lula preso amanhã!!!", "Descrição da notícia 3.", ""));
-        addItem(new Item(nextId++, "Yakuza é preso", "Descrição da notícia 4.", ""));
-        addItem(new Item(nextId++, "Maria é presa", "Descrição da mais lida 5.", ""));
-        addItem(new Item(nextId++, "Romario joga bola", "Descrição da mais lida 6.", ""));
-        addItem(new Item(nextId++, "Davy Jones joga games", "Descrição da mais lida 7.", ""));
+        addItem(new Item(nextId++, "Brasil vence copa do mundo", "Descrição da notícia de destaque.", "gabigol.jpg"));
+        addItem(new Item(nextId++, "Trump vence eleição", "Descrição da notícia 2.", "trump.jpg"));
+        addItem(new Item(nextId++, "Lula preso amanhã!!!", "Descrição da notícia 3.", "lula.jpg"));
+        addItem(new Item(nextId++, "Yakuza é preso", "Descrição da notícia 4.", "IMG_0887.JPG"));
+        addItem(new Item(nextId++, "Maria é presa", "Descrição da mais lida 5.", "saporrquimem.jpg"));
+        addItem(new Item(nextId++, "Romario joga bola", "Descrição da mais lida 6.", "bope.jpg"));
+        addItem(new Item(nextId++, "Davy Jones joga games", "Descrição da mais lida 7.", "IMG_0908.jpg"));
         // Adicione mais itens conforme necessário
     }
 
